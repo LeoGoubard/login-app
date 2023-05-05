@@ -9,8 +9,8 @@ const Reset = () => {
 
   const formik = useFormik({
     initialValues: {
-        password: 'admin@123',
-        confirmPassword: 'admin@123'
+        password: '',
+        confirmPassword: ''
     },
     validate: resetPasswordValidate,
     validateOnBlur: false,
