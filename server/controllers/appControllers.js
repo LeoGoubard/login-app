@@ -161,9 +161,7 @@ export const verifyOTP = async(req, res) => {
 
 export const createResetSession = async(req, res) => {
     if (req.app.locals.resetSession) {
-        req.app.locals.resetSession = false
-
-        return res.status(201).send({ msg: "Access granted" })
+        return res.status(201).send({ flag: req.app.locals.resetSession })
     }
     return res.status(440).send({ error: "Session expired" })
 
@@ -179,9 +177,9 @@ export const resetPassword = async(req, res) => {
 
             if(user) {
                 bcrypt.hash(password, 10)
-                    .then(hashedPassword => {
-                        const updatedUser = UserModel.updateOne({ username: user._id }, { password: hashedPassword })
-                        if(updatedUser) {
+                .then(async hashedPassword => {
+                    const updatedUser = await UserModel.updateOne({ username: user.username }, { password: hashedPassword })
+                    if(updatedUser) {
                             req.app.locals.resetSession = false;
                             return res.status(201).send({ msg: "Record Updated... !" })
                         }

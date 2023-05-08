@@ -8,7 +8,6 @@ const baseURL = process.env.REACT_APP_SERVER_DOMAIN || "http://localhost:8080";
 
 /** custom hook */
 export default function useFetch(query){
-    console.log(query)
     const [getData, setData] = useState({ isLoading : false, apiData: undefined, status: null, serverError: null })
 
     useEffect(() => {
