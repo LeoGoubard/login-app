@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import ENV from '../config.js';
 
 
-const Auth = async(req, res, next) => {
+export const Auth = async(req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
 
@@ -16,4 +16,11 @@ const Auth = async(req, res, next) => {
     }
 }
 
-export default Auth;
+export const localVariables = (req, res, next) => {
+    req.app.locals = {
+        OTP: null,
+        resetSession: false
+    }
+
+    next()
+}

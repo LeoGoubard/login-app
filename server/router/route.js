@@ -3,7 +3,7 @@ import { Router } from 'express';
 const router = Router();
 
 import * as controller from '../controllers/appControllers.js'
-import Auth from '../middleware/auth.js';
+import { Auth, localVariables } from '../middleware/auth.js';
 
 
 // POST
@@ -14,8 +14,8 @@ router.route('/login').post(controller.verifyUser, controller.login);
 
 // GET
 router.route('/user/:username').get(controller.getUser);
-router.route('/generateOTP').get(controller.generateOTP);
-router.route('/verifyOTP').get(controller.verifyOTP);
+router.route('/generateOTP').get(controller.verifyUser, localVariables, controller.generateOTP);
+router.route('/verifyOTP').get(controller.verifyUser, controller.verifyOTP);
 router.route('/createResetSession').get(controller.createResetSession);
 
 // PUT
