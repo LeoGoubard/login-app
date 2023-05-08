@@ -1,9 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
-
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
-
-
+  
+const baseURL = process.env.REACT_APP_SERVER_DOMAIN || "http://localhost:8080";
 /** Make API Requests */
 
 
@@ -18,7 +16,7 @@ export const getUsername = async() => {
 /** authenticate function */
 export const authenticate = async(username) => {
     try {
-        return await axios.post('/api/authenticate', { username })
+        return await axios.post(`${baseURL}/api/authenticate`, { username })
     } catch (error) {
         return { error : "Username doesn't exist...!"}
     }
@@ -27,7 +25,7 @@ export const authenticate = async(username) => {
 /** get User details */
 export const getUser = async({ username }) => {
     try {
-        const { data } = await axios.get(`/api/user/${username}`);
+        const { data } = await axios.get(`${baseURL}/api/user/${username}`);
         return { data };
     } catch (error) {
         return { error : "Password doesn't Match...!"}
@@ -37,13 +35,13 @@ export const getUser = async({ username }) => {
 /** register user function */
 export const registerUser = async(credentials) => {
     try {
-        const { data : { msg }, status } = await axios.post(`/api/register`, credentials);
+        const { data : { msg }, status } = await axios.post(`${baseURL}/api/register`, credentials);
 
         let { username, email } = credentials;
 
         /** send email */
         if(status === 201){
-            await axios.post('/api/registerMail', { username, userEmail : email, text : msg })
+            await axios.post(`${baseURL}/api/registerMail`, { username, userEmail : email, text : msg })
         }
 
         return Promise.resolve(msg)
@@ -56,7 +54,7 @@ export const registerUser = async(credentials) => {
 export const verifyPassword = async({ username, password }) => {
     try {
         if(username){
-            const { data } = await axios.post('/api/login', { username, password })
+            const { data } = await axios.post(`${baseURL}/api/login`, { username, password })
             return Promise.resolve({ data });
         }
     } catch (error) {
@@ -69,7 +67,7 @@ export const updateUser = async(response) => {
     try {
         
         const token = await localStorage.getItem('token');
-        const data = await axios.put('/api/updateUser', response, { headers : { "Authorization" : `Bearer ${token}` } });
+        const data = await axios.put(`${baseURL}/api/updateUser`, response, { headers : { "Authorization" : `Bearer ${token}` } });
 
         return Promise.resolve({ data })
     } catch (error) {
@@ -80,13 +78,13 @@ export const updateUser = async(response) => {
 /** generate OTP */
 export const generateOTP = async(username) => {
     try {
-        const {data : { code }, status } = await axios.get('/api/generateOTP', { params : { username }});
+        const {data : { code }, status } = await axios.get(`${baseURL}/api/generateOTP`, { params : { username }});
 
         // send mail with the OTP
         if(status === 201){
             let { data : { email }} = await getUser({ username });
             let text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
-            await axios.post('/api/registerMail', { username, userEmail: email, text, subject : "Password Recovery OTP" })
+            await axios.post(`${baseURL}/api/registerMail`, { username, userEmail: email, text, subject : "Password Recovery OTP" })
         }
         return Promise.resolve(code);
     } catch (error) {
@@ -97,7 +95,7 @@ export const generateOTP = async(username) => {
 /** verify OTP */
 export const verifyOTP = async({ username, code }) => {
     try {
-       const { data, status } = await axios.get('/api/verifyOTP', { params : { username, code }})
+       const { data, status } = await axios.get(`${baseURL}/api/verifyOTP`, { params : { username, code }})
        return { data, status }
     } catch (error) {
         return Promise.reject(error);
@@ -107,7 +105,7 @@ export const verifyOTP = async({ username, code }) => {
 /** reset password */
 export const resetPassword = async({ username, password }) => {
     try {
-        const { data, status } = await axios.put('/api/resetPassword', { username, password });
+        const { data, status } = await axios.put(`${baseURL}/api/resetPassword`, { username, password });
         return Promise.resolve({ data, status })
     } catch (error) {
         return Promise.reject({ error })

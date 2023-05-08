@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { getUsername } from '../helper/helper'
 
-axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
+// axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
+const baseURL = process.env.REACT_APP_SERVER_DOMAIN || "http://localhost:8080";
 
 
 /** custom hook */
 export default function useFetch(query){
+    console.log(query)
     const [getData, setData] = useState({ isLoading : false, apiData: undefined, status: null, serverError: null })
 
     useEffect(() => {
@@ -17,7 +19,7 @@ export default function useFetch(query){
 
                 const { username } = !query ? await getUsername() : '';
                 
-                const { data, status } = !query ? await axios.get(`/api/user/${username}`) : await axios.get(`/api/${query}`);
+                const { data, status } = !query ? await axios.get(`${baseURL}/api/user/${username}`) : await axios.get(`${baseURL}/api/${query}`);
 
                 if(status === 201){
                     setData(prev => ({ ...prev, isLoading: false}));
