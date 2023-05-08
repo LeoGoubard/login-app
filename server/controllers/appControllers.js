@@ -71,7 +71,6 @@ export const register = async(req,res) => {
 
 }
 
-
 export const login = async(req,res) => {
    
     const { username, password } = req.body;
@@ -172,5 +171,35 @@ export const createResetSession = async(req, res) => {
 }
 
 export const resetPassword = async(req, res) => {
-    res.json('resetPassword route')
+    try {
+        if(!req.app.locals.resetSession) return res.status(440).send({ error: "Session expired" });
+        const  { username, password } = req.body;
+
+        try {
+            const user = await UserModel.findOne({ username });
+
+            if(user) {
+                bcrypt.hash(password, 10)
+                    .then(hashedPassword => {
+                        const updatedUser = UserModel.updateOne({ username: user._id }, { password: hashedPassword })
+                        if(updatedUser) {
+                            req.app.locals.resetSession = false;
+                            return res.status(201).send({ msg: "Record Updated... !" })
+                        }
+                    })
+                    .catch( e => {
+                        return res.status(500).send({
+                            error: "Enable to hashed password"
+                        })
+                    })
+            } else {
+                return res.status(404).send({ error: "Username not found" })
+            }
+            
+        } catch (error) {
+            return res.status(500).send({ error })
+        }
+    } catch (error) {
+        return res.status(401).send({ error })
+    }
 }
