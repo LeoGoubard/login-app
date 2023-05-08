@@ -19,7 +19,7 @@ router.route('/verifyOTP').get(controller.verifyUser, controller.verifyOTP);
 router.route('/createResetSession').get(controller.createResetSession);
 
 // PUT
-router.route('/updateuser').put(Auth, controller.updatUser);
+router.route('/updateUser').put(Auth, controller.updatUser);
 router.route('/resetPassword').put(controller.verifyUser, controller.resetPassword);
 
 export default router;
