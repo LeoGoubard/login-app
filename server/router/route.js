@@ -3,6 +3,8 @@ import { Router } from 'express';
 const router = Router();
 
 import * as controller from '../controllers/appControllers.js'
+import Auth from '../middleware/auth.js';
+
 
 // POST
 router.route('/register').post(controller.register);
@@ -17,7 +19,7 @@ router.route('/verifyOTP').get(controller.verifyOTP);
 router.route('/createResetSession').get(controller.createResetSession);
 
 // PUT
-router.route('/updateuser').put(controller.updatUser);
+router.route('/updateuser').put(Auth, controller.updatUser);
 router.route('/resetPassword').put(controller.resetPassword);
 
 export default router;

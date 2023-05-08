@@ -127,10 +127,10 @@ export const getUser = async(req, res) => {
 
 export const updatUser = async(req, res) => {
     try {
-        const id = req.query.id
-        if (id) {
+        const { userId } = req.user
+        if (userId) {
             const body = req.body;
-            const updatedUser = await UserModel.updateOne({ _id: id }, body)
+            const updatedUser = await UserModel.updateOne({ _id: userId }, body)
 
             if(updatedUser) {
                 return res.status(201).send({ msg: "Record Updated... !" })
