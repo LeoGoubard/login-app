@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
   
-const baseURL = process.env.REACT_APP_SERVER_DOMAIN || "http://localhost:8080";
+const baseURL = process.env.REACT_APP_SERVER_DOMAIN || "https://loginapp-api.onrender.com";
 /** Make API Requests */
 
 
