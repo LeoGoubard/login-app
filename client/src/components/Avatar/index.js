@@ -5,7 +5,7 @@ import { useAuthStore } from "../../store/store";
 const Avatar = ({ profile }) => {
     const profilPic = useAuthStore(state => state.auth.profilePic)
     return (
-        <div className="profile flex justify-center py-4">
+        <div className="profile flex justify-center">
             <img src={profile || profilPic} className={styles.profile_img} alt="avatar" />
         </div>
     )

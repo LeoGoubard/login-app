@@ -5,4 +5,5 @@ export { default as Reset } from './Reset';
 export { default as Profile } from './Profile';
 export { default as Register } from './Register';
 export { default as Avatar } from './Avatar';
+export { default as Loader } from './Loader';
 export { default as Recovery } from './Recovery';

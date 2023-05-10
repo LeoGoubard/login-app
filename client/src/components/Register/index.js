@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import { registerValidate } from '../../helper/validate';
 import convertToBase64 from '../../helper/convert';
 import { registerUser } from '../../helper/helper'
+import { Avatar } from '../index';
 
 
 import styles from '../../styles/Username.module.css';
@@ -51,20 +52,20 @@ const Register = () => {
           <div className="title flex flex-col items-center">
             <h4 className='text-5xl font-bold'>Register</h4>
             <span className='py-4 text-xl w-2/3 text-center text-gray-500'>
-                Happy to join you!
+                Happy to see you!
             </span>
           </div>
 
           <form className='py-1' onSubmit={formik.handleSubmit}>
               <div className='profile flex justify-center py-4'>
                   <label htmlFor="profile">
-                    <img src={file || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3131&q=80"} className={styles.profile_img} alt="avatar" />
+                    <Avatar />
                   </label>
                   
                   <input onChange={onUpload} type="file" id='profile' name='profile' />
               </div>
 
-              <div className="textbox flex flex-col items-center gap-6">
+              <div className="textbox flex flex-col items-center gap-4">
                   <input {...formik.getFieldProps('email')} className={styles.textbox} type="text" placeholder='Email*' />
                   <input {...formik.getFieldProps('username')} className={styles.textbox} type="text" placeholder='Username*' />
                   <input {...formik.getFieldProps('password')} className={styles.textbox} type="password" placeholder='Password*' />
@@ -72,7 +73,7 @@ const Register = () => {
               </div>
 
               <div className="text-center py-4">
-                <span className='text-gray-500'>Already Register? <Link className='text-red-500' to="/">Login Now</Link></span>
+                <span className='text-gray-500'>Already Register ? <Link className='text-red-500' to="/">Login Now</Link></span>
               </div>
 
           </form>

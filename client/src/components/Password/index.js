@@ -6,7 +6,7 @@ import { useFormik } from 'formik';
 import { passwordValidate } from "../../helper/validate";
 import { useAuthStore } from "../../store/store";
 import { verifyPassword } from "../../helper/helper";
-import { Avatar } from "../index"
+import { Avatar, Loader } from "../index"
 import useFetch from "../../hooks/fetch.hook";
 
 
@@ -39,8 +39,8 @@ const Password = () => {
     }
   })
 
-  if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
-  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
+  if(isLoading) return <Loader />;
+  if(serverError) return toast.error("This didn't work.")
 
   return (
     <div className="container mx-auto border">
@@ -54,7 +54,7 @@ const Password = () => {
           </div>
           <form className="py-1" onSubmit={formik.handleSubmit}>
             <Avatar profile={apiData?.profile} />
-            <div className="textbox flex flex-col items-center gap-6">
+            <div className="textbox flex flex-col items-center mt-4 gap-6">
               <input className={styles.textbox} {...formik.getFieldProps("password")} type="password" placeholder="password"/>
               <button className={styles.btn} type="submit">Sign in</button>
             </div>

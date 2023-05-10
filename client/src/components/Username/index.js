@@ -5,7 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { usernameValidate } from "../../helper/validate";
 import { useAuthStore } from "../../store/store";
-import Avatar from '../Avatar';
+import { Avatar } from '../index';
 
 const Username = () => {
   const navigate = useNavigate();

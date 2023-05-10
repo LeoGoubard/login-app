@@ -7,7 +7,7 @@ import { resetPassword } from '../../helper/helper';
 import { useAuthStore } from '../../store/store';
 import { useNavigate, Navigate } from 'react-router-dom';
 import useFetch from '../../hooks/fetch.hook';
-
+import { Loader } from "../index";
 
 const Reset = () => {
   const { username } = useAuthStore(state => state.auth);
@@ -38,8 +38,9 @@ const Reset = () => {
     }
   })
 
-  if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
-  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
+
+  if(isLoading) return <Loader />;
+  if(serverError) return toast.error("This didn't work.")
   if(status && status !== 201) return <Navigate to={'password'} replace={true} ></Navigate>
 
   return (

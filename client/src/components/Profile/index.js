@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 
 import styles from '../../styles/Username.module.css';
 import extend from '../../styles/Profile.module.css'
+import { Avatar, Loader } from '../index';
 
 const Profile = () => {
 
@@ -53,8 +54,8 @@ const Profile = () => {
     navigate('/')
   }
 
-  if(isLoading) return <h1 className='text-2xl font-bold'>isLoading</h1>;
-  if(serverError) return <h1 className='text-xl text-red-500'>{serverError.message}</h1>
+  if(isLoading) return <Loader />;
+  if(serverError) return toast.error("This didn't work.")
 
   return (
     <div className="container mx-auto">
@@ -71,10 +72,10 @@ const Profile = () => {
             </span>
           </div>
 
-          <form className='py-1' onSubmit={formik.handleSubmit}>
+          <form onSubmit={formik.handleSubmit}>
               <div className='profile flex justify-center py-4'>
                   <label htmlFor="profile">
-                    <img src={apiData?.profile || file || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3131&q=80"} className={`${styles.profile_img} ${extend.profile_img}`} alt="avatar" />
+                    <Avatar profile={file ? file : apiData?.profile}  />
                   </label>
                   
                   <input onChange={onUpload} type="file" id='profile' name='profile' />

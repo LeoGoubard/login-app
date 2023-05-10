@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import Mailgen from "mailgen";
 import * as dotenv from "dotenv"
-dotenv.config({ path: "../vars/.env" })
+dotenv.config({ path: "./vars/.env" })
 
 // https://ethereal.email/create
 let nodeConfig = {
@@ -23,10 +23,16 @@ let MailGenerator = new Mailgen({
         link: "https://mailgen.js/"
     }
 })
-
+transporter.verify(function (error, success) {
+    if (error) {
+      console.log('error TEST', error);
+    } else {
+      console.log("Server is ready to take our messages");
+    }
+  });
 const registerMail = async (req, res) => {
     const { username, userEmail, text, subject } = req.body;
-
+    console.log(username, userEmail)
     var email = {
         body: {
             name: username,
@@ -48,7 +54,7 @@ const registerMail = async (req, res) => {
         .then(() => {
             return res.status(200).send({ msg: 'You should receive an email from us.' })
         })
-        .catch(error => res.status(500).send({ error }))
+        .catch(error => {console.log(error), res.status(500).send({ error })})
 }
 
 export default registerMail;
