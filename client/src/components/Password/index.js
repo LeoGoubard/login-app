@@ -5,7 +5,8 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { passwordValidate } from "../../helper/validate";
 import { useAuthStore } from "../../store/store";
-import { verifyPassword } from "../../helper/helper"
+import { verifyPassword } from "../../helper/helper";
+import { Avatar } from "../index"
 import useFetch from "../../hooks/fetch.hook";
 
 
@@ -52,9 +53,7 @@ const Password = () => {
             <span className="py-4 text-xl w-2/3 text-center text-gray-500"> Explore More by connecting with us.</span>
           </div>
           <form className="py-1" onSubmit={formik.handleSubmit}>
-            <div className="profile flex justify-center py-4">
-              <img src={apiData?.profile || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3131&q=80"} className={styles.profile_img} alt="avatar" />
-            </div>
+            <Avatar profile={apiData?.profile} />
             <div className="textbox flex flex-col items-center gap-6">
               <input className={styles.textbox} {...formik.getFieldProps("password")} type="password" placeholder="password"/>
               <button className={styles.btn} type="submit">Sign in</button>

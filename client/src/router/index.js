@@ -1,8 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
 import { Username, Profile, Register, PageNotFound, Password, Recovery, Reset } from '../components';
 import { AuthoriseUser, Protectroute } from "../middleware/auth";
 
-export const router = createBrowserRouter([
+export const router = [
     {
       path: "/",
       element: <Username></Username>
@@ -31,4 +30,4 @@ export const router = createBrowserRouter([
       path: "*",
       element: <PageNotFound></PageNotFound>
     }
-  ])
+  ]

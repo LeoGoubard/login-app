@@ -5,6 +5,7 @@ import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { usernameValidate } from "../../helper/validate";
 import { useAuthStore } from "../../store/store";
+import Avatar from '../Avatar';
 
 const Username = () => {
   const navigate = useNavigate();
@@ -35,10 +36,10 @@ const Username = () => {
           </div>
           <form className="py-1" onSubmit={formik.handleSubmit}>
             <div className="profile flex justify-center py-4">
-              <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3131&q=80" className={styles.profile_img} alt="avatar" />
+              <Avatar />
             </div>
             <div className="textbox flex flex-col items-center gap-6">
-              <input className={styles.textbox} {...formik.getFieldProps("username")} type="text" placeholder="username"/>
+              <input className={styles.textbox} onChange={formik.handleChange} value={formik.values.username} id="username" type="text" placeholder="username"/>
               <button className={styles.btn} type="submit">Let's Go</button>
             </div>
             <div className="text-center py-4">

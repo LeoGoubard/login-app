@@ -4,4 +4,5 @@ export { default as PageNotFound } from './PageNotFound';
 export { default as Reset } from './Reset';
 export { default as Profile } from './Profile';
 export { default as Register } from './Register';
+export { default as Avatar } from './Avatar';
 export { default as Recovery } from './Recovery';
