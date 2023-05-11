@@ -5,11 +5,11 @@ import { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { usernameValidate } from "../../helper/validate";
 import { useAuthStore } from "../../store/store";
-import { Avatar, Loader } from '../index';
+import { Avatar } from '../index';
 
 const Username = () => {
   const navigate = useNavigate();
-  const { setLoader, setUsername, auth } = useAuthStore(state => state)
+  const setUsername = useAuthStore(state => state.setUsername)
 
   const formik = useFormik({
     initialValues: {
@@ -19,15 +19,12 @@ const Username = () => {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async values => {
-      setLoader(true)
       setUsername(values.username)
       navigate('/password')
     }
   })
-
   return (
     <div className="container mx-auto border">
-      {auth.isLoading && <Loader />}
       <Toaster position='top-center' reverseOrder={false} ></Toaster>
       <div className="flex justify-center items-center h-screen">
         <div className={styles.glass}>

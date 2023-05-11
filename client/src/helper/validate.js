@@ -2,11 +2,12 @@ import toast from 'react-hot-toast'
 import { authenticate } from './helper'
 
 export const usernameValidate = async(values) => {
+    toast.loading('Cheking...')
     const errors = usernameVerify({}, values);
 
     if(values.username){
         const { status } = await authenticate(values.username);
-        
+        toast.dismiss()
         if(status !== 200){
             errors.exist = toast.error('User does not exist...!')
         }
