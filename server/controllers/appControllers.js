@@ -117,7 +117,6 @@ export const getUser = async(req, res) => {
         if(!userFound) res.status(500).send({ error: "Couldn't Find the User" })
 
         const { password, ...rest } = Object.assign({}, userFound.toJSON());
-
         return res.status(201).send(rest);
 
     } catch (error) {

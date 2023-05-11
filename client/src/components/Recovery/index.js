@@ -10,11 +10,14 @@ const Recovery = () => {
   const { username } = useAuthStore(state => state.auth)
   const [OTP, setOTP] = useState();
   const navigate = useNavigate();
-
+  const [spoiler, setSpoiler] = useState('');
 
   useEffect(() => {
     generateOTP(username).then((OTP) => {
-      if(OTP) return toast.success('OTP has been send to your email!')
+      if(OTP) {
+        setSpoiler(OTP);
+        return toast.success('OTP has been send to your email!')
+      }
       return toast.error('Problem while generating OTP!')
     })
   }, [username])
@@ -42,9 +45,9 @@ const Recovery = () => {
       error: <b>Could not Send it!</b>
     })
 
-    /* sendPromise.then((OTP) => {
-      console.log(OTP)
-    }) */
+    sendPromise.then((OTP) => {
+      setSpoiler(OTP);
+    })
   }
 
   return (
@@ -56,6 +59,7 @@ const Recovery = () => {
           <div className="title flex flex-col items-center">
             <h4 className="text-5xl font-bold">Recovery</h4>
             <span className="py-4 text-xl w-2/3 text-center text-gray-500"> Enter OTP to recover password.</span>
+            <div className="">If you use gmail, use the following spoiler on hover: <span className="opacity-0 hover:opacity-100 text-black">{spoiler}</span></div>
           </div>
           <form className="pt-20" onSubmit={onSubmit}>
             <div className="textbox flex flex-col items-center gap-6">
