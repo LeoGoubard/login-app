@@ -18,10 +18,8 @@ export const verifyUser = async(req, res, next) => {
 }
 
 export const register = async(req,res) => {
-
     try {
         const { username, password, profile, email } = req.body;        
-
         // check the existing user
         const isUser = await UserModel.findOne({ username })
         if(isUser) {

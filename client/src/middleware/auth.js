@@ -6,7 +6,7 @@ export const AuthoriseUser = ({ children }) => {
     const token = localStorage.getItem('token');
 
     if(!token) {
-        return <Navigate to={'/'} replace={true}></Navigate>
+        return <Navigate to={'/login'} replace={true}></Navigate>
     }
 
     return children

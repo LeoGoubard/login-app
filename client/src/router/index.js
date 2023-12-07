@@ -1,33 +1,32 @@
-import { Username, Profile, Register, PageNotFound, Password, Recovery, Reset } from '../components';
-import { AuthoriseUser, Protectroute } from "../middleware/auth";
+import { createBrowserRouter } from "react-router-dom";
+import { AuthoriseUser } from "../middleware/auth";
+import { Register, Login } from "../pages";
+import { Profile } from "../components";
+import App from "../App";
 
-export const router = [
-    {
-      path: "/",
-      element: <Username></Username>
-    },
-    {
-      path: "/register",
-      element: <Register></Register>
-    },
-    {
-      path: "/password",
-      element: <Protectroute><Password /></Protectroute>
-    },
-    {
-      path: "/profile",
-      element: <AuthoriseUser><Profile /></AuthoriseUser>
-    },
-    {
-      path: "/recovery",
-      element: <Protectroute><Recovery /></Protectroute>
-    },
-    {
-      path: "/reset",
-      element: <Protectroute><Reset /></Protectroute>
-    },
-    {
-      path: "*",
-      element: <PageNotFound></PageNotFound>
-    }
-  ]
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: (
+      <AuthoriseUser>
+        <App />
+      </AuthoriseUser>
+    ),
+    children: [
+      {
+        path: "",
+        element: <Profile />
+      }
+    ]
+  },
+  {
+      path: '/register',
+      element: <Register />,
+  },
+  {
+      path: '/login',
+      element: <Login />,
+  },
+]);
+
+export default router;

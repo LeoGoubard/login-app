@@ -1,9 +1,17 @@
-export { default as Username } from './Username';
-export { default as Password } from './Password';
-export { default as PageNotFound } from './PageNotFound';
-export { default as Reset } from './Reset';
-export { default as Profile } from './Profile';
-export { default as Register } from './Register';
-export { default as Avatar } from './Avatar';
-export { default as Loader } from './Loader';
-export { default as Recovery } from './Recovery';
+import Password from './Password';
+import PageNotFound from './PageNotFound';
+import Reset from './Reset';
+import Profile from './Profile';
+import Avatar from './Avatar';
+import Loader from './Loader';
+import Recovery from './Recovery';
+
+export {
+    Password,
+    PageNotFound,
+    Reset,
+    Profile,
+    Avatar,
+    Loader,
+    Recovery
+}
